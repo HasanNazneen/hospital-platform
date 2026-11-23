@@ -1,8 +1,12 @@
 ﻿asgiref==3.12.1
 attrs==26.1.0
+certifi==2026.11.20
+charset-normalizer==3.5.3
+cloudinary==1.47.0
 colorama==0.4.6
 dj-database-url==3.1.2
 Django==5.2.19
+django-cloudinary-storage==0.3.0
 django-cors-headers==4.9.0
 django-filter==26.1
 djangorestframework==3.18.3
@@ -11,6 +15,7 @@ drf-spectacular==0.30.0
 exceptiongroup==1.3.2
 Faker==40.63.0
 gunicorn==27.0.1
+idna==3.20
 inflection==0.5.1
 iniconfig==2.3.1
 jsonschema==4.26.0
@@ -26,10 +31,13 @@ pytest-django==4.14.0
 python-decouple==3.8
 PyYAML==6.0.4
 referencing==0.37.0
+requests==2.34.2
 rpds-py==0.30.0
+six==1.17.0
 sqlparse==0.6.1
 tomli==2.5.0
 typing_extensions==4.16.0
 tzdata==2026.6
 uritemplate==4.2.0
+urllib3==2.8.0
 whitenoise==6.12.0
