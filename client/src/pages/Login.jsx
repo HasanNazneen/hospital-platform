@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuth } from "../AuthContext";
 import { errorMessage } from "../api";
-
+import AuthShell from "../components/AuthShell";
 const schema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(1, "Password is required"),
@@ -27,7 +27,8 @@ export default function Login() {
   };
 
   return (
-    <form className="card narrow" onSubmit={handleSubmit(onSubmit)}>
+    <AuthShell>
+    <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
       <h2>Log in</h2>
       {error && <p className="err">{error}</p>}
       <label>Email<input type="email" {...register("email")} /></label>
@@ -35,7 +36,8 @@ export default function Login() {
       <label>Password<input type="password" {...register("password")} /></label>
       {errors.password && <p className="err">{errors.password.message}</p>}
       <button disabled={isSubmitting}>{isSubmitting ? "Signing in..." : "Log in"}</button>
-      <p>No account? <Link to="/register">Register</Link></p>
+      <p className="alt">No account? <Link to="/register">Register</Link></p>
     </form>
+    </AuthShell>
   );
 }

@@ -2,8 +2,14 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import api, { errorMessage } from "../api";
 
-function Stat({ label, value }) {
-  return <div className="stat"><div className="num">{value ?? "-"}</div><div>{label}</div></div>;
+function Stat({ label, value, meter }) {
+  return (
+    <div className="stat">
+      <div className="num">{value ?? "-"}</div>
+      <div className="lbl">{label}</div>
+      {meter != null && <div className="meter"><div style={{ width: `${Math.min(meter, 100)}%` }} /></div>}
+    </div>
+  );
 }
 
 export default function Dashboard() {
@@ -30,16 +36,17 @@ export default function Dashboard() {
       {data && (
         <>
           <div className="stats">
-            <Stat label="Average length of stay (days)" value={data.avg_length_of_stay_days} />
-            <Stat label="Bed occupancy" value={`${data.bed_occupancy_pct}%`} />
-            <Stat label="30-day readmission rate" value={`${data.readmission_rate_30d_pct}%`} />
-          </div>
-          <p>Beds in use: {data.occupied_beds} of {data.total_beds} | Discharged admissions: {data.discharged_admissions}</p>
-          <p>
+  <Stat label="Average length of stay (days)" value={data.avg_length_of_stay_days} />
+  <Stat label="Bed occupancy" value={`${data.bed_occupancy_pct}%`} meter={data.bed_occupancy_pct} />
+  <Stat label="30-day readmission rate" value={`${data.readmission_rate_30d_pct}%`} meter={data.readmission_rate_30d_pct} />
+</div>
+          <p className="note">Beds in use: {data.occupied_beds} of {data.total_beds} | Discharged admissions: {data.discharged_admissions}</p>
+          <p className="note">
             Data quality: {data.data_quality.missing_discharge_flagged} admissions flagged for missing discharge date,{" "}
             {data.data_quality.unmapped_diagnoses} diagnoses without a code.
           </p>
           {data.by_hospital && (
+             <div className="card">
             <table>
               <thead><tr><th>Hospital</th><th>Avg stay</th><th>Occupancy</th><th>Readmission</th></tr></thead>
               <tbody>
@@ -51,6 +58,7 @@ export default function Dashboard() {
                 ))}
               </tbody>
             </table>
+            </div>
           )}
         </>
       )}

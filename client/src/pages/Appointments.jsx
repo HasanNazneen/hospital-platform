@@ -132,13 +132,13 @@ export default function Appointments() {
           <table>
             <thead><tr><th>When</th><th>Patient</th><th>Doctor</th><th>Status</th><th></th></tr></thead>
             <tbody>
-              {rows.length === 0 && <tr><td colSpan="5">No appointments found.</td></tr>}
+              {rows.length === 0 && <tr><td colSpan="5">No appointments yet. Patients can book one from this page. </td></tr>}
               {rows.map((a) => (
                 <tr key={a.id}>
                   <td>{new Date(a.slot).toLocaleString()}</td>
                   <td>{a.patient_name}</td>
                   <td>{a.doctor_name}</td>
-                  <td>{a.status}</td>
+                  <td><span className={`badge ${a.status}`}>{a.status}</span></td>
                   <td>
                     {a.status === "booked" && user.role !== "doctor" &&
                       <button className="link" onClick={() => setStat.mutate({ id: a.id, s: "cancelled" })}>Cancel</button>}
