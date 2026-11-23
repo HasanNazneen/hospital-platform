@@ -47,3 +47,18 @@ class Admission(models.Model):
     class Meta:
         indexes = [models.Index(fields=["patient", "admit_date"])]
 # Create your models here.
+
+class LabTest(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    admission = models.ForeignKey(Admission, null=True, blank=True,
+                                  on_delete=models.CASCADE, related_name="lab_tests")
+    test_name = models.CharField(max_length=80)
+    result_value = models.CharField(max_length=40, blank=True)
+    test_date = models.DateField()
+
+class Billing(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    admission = models.ForeignKey(Admission, null=True, blank=True, on_delete=models.SET_NULL)
+    visit_type = models.CharField(max_length=10)          # "opd" or "ipd"
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    billed_on = models.DateField()

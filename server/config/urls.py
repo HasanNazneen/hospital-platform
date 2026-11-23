@@ -24,6 +24,7 @@ urlpatterns = [
     path("api/", include("clinic.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema")),
+    path("api/analytics/", include("analytics.urls")),
 ]
 
 from django.conf import settings
